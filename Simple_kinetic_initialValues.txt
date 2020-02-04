@@ -1,0 +1,14 @@
+#concentrations
+
+#INITVALUES
+   A = 10;
+   B = 8;
+   NO = 0;
+   H = 0;  
+   UNITS = 'ppb';
+   CFACTOR = 1;
+   TEMP = 300;
+#CONSTANTS
+	O2 = 1.697E+16;
+	M = 8.120E+16;
+	#

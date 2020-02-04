@@ -1,0 +1,6 @@
+#REACTIONS { Simple Kinetic problem }
+
+
+{1}  A    = 1H		: (1.392E-5);
+{2}  H    = 1A		: (4.17E-3);
+{3}  H   + B = 1C 	: (0.6);
