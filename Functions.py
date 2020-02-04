@@ -1,9 +1,14 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb  3 13:38:36 2020
+'''
+Kinetic PreProcessor in Python (K3P)
+Behrooz Roozitalab (behrooz-roozitalab@uiowa.edu)
+Center for Global and Regional Environmental Research, 
+Chemical and Biochemical Engineering Department,
+University of Iowa
 
-@author: roozitalab
-"""
+Individual Project for Atmospheric Chemistry and Physics Course by Prof. Charles O. Stanier (charles-stanier@uiowa.edu)
+
+read README.md for more information.
+'''
 import re
 import numpy as np
 from sympy import Symbol
