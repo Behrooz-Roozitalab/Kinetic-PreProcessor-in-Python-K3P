@@ -114,7 +114,7 @@ OUTPUTS:
     NOTE:
         - You can modify the code to save additional outputs you inquire!
         
-References:
+References: /
 [1] Damian, V., A. Sandu, M. Damian, F. Potra, and G.R. Carmichael, The kinetic preprocessor KPP-a software environment for solving chemical kinetics. Computers & Chemical Engineering, 2002. 26(11): p. 1567-1579.
 
 [2] Roozitalab, B. (2018). Comparing Ozone Formation Kinetic Solvers: Python vs. KPP-Fortran. 10.13140/RG.2.2.10663.09128. Available on: https://www.researchgate.net/publication/338762353_Comparing_Ozone_Formation_Kinetic_Solvers_Python_vs_KPP-Fortran
