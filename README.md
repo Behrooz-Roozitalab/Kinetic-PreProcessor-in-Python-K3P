@@ -82,14 +82,14 @@ How To run:
          
          {1}  O2   + hv = 2O		: (2.643E-10)*SUN**3;   CORRECT
          
+         -------         
          
-         
-         NOTE: This the preferred format. Be careful if you write the reactions another way.
+         NOTE: This is the preferred format. Be careful if you write the reactions another way.
          
          NOTE: The code includes ---
          
-        -------
-
+ 
+ 
     - Initial Values: A text file should be prepared with a format like below:
         
 
