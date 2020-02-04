@@ -1,14 +1,13 @@
-This code (and its attachment 'functions.py' code) are designed to do the kinetics, specially atmospheric reactions. 
-It has been designed following the processes Kinetic PreProcessor (KPP) follows although
+This code (and its attachment: 'functions.py') is designed to do the kinetics, specifically for atmospheric chemistry reactions. 
+It has been designed following the processes Kinetic PreProcessor (KPP) [1] follows although
 it is not as powerful as versatile as KPP. However, it is user-friendly and can be used 
 to teach the kinetics or doing not-complicated box-modeling simulations. Nevertheless,
 it has been tried to write the code that can be easily modified or developed for more 
 complicated purposes using Python programming.
 
 
-The report for this code is uploaded on ResearchGate and please cite it if you use this code (partially or completely):
-https://www.researchgate.net/publication/338762353_Comparing_Ozone_Formation_Kinetic_Solvers_Python_vs_KPP-Fortran
-DOI: 10.13140/RG.2.2.10663.09128
+The report for this code is uploaded on ResearchGate [2] and please cite it if you use this code (partially or completely):
+The reader is referred to Atmospheric Chemistry and Physics: From Air pollution to Climate Change [3] for gaining the scientific background.
 
 Before run:
 
@@ -114,3 +113,10 @@ OUTPUTS:
     - one csv file containing the values that were used to plot the figure.
     NOTE:
         - You can modify the code to save additional outputs you inquire!
+        
+References:
+[1] Damian, V., A. Sandu, M. Damian, F. Potra, and G.R. Carmichael, The kinetic preprocessor KPP-a software environment for solving chemical kinetics. Computers & Chemical Engineering, 2002. 26(11): p. 1567-1579.
+
+[2] Roozitalab, B. (2018). Comparing Ozone Formation Kinetic Solvers: Python vs. KPP-Fortran. 10.13140/RG.2.2.10663.09128. Available on: https://www.researchgate.net/publication/338762353_Comparing_Ozone_Formation_Kinetic_Solvers_Python_vs_KPP-Fortran
+
+[3] Seinfeld, J.H. and S.N. Pandis, Atmospheric chemistry and physics: from air pollution to climate change. 2016: John Wiley & Sons.
