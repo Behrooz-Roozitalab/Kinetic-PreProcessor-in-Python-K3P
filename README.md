@@ -15,7 +15,7 @@ Before run:
 - You can use python directly, but since you may need to install libraries to utilize the availabe functions or codes, it is strongly     recommended to install python via library management softwares. Anaconda is recommended. 
 - It is recommended that you use powerful text-editors like Spyder for having better 
   interaction with the code. Spyder will be installed automatically with Anaconda.
-- You can refer to python tutorials to become more familiar with this language and its syntax; It is strongly recommended to start with   Prof. Charles Stanier's python tutorial for chemical engineers:
+- You can refer to python tutorials to become more familiar with this language and its syntax; It is strongly recommended to start with   Prof. Charles Stanier's python tutorial for chemical engineers: https://github.com/charles-stan/learn_python_Stanier
 - This code uses different libraries including:
     - numpy
     - scipy
