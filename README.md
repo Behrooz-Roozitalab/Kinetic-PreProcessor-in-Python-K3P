@@ -6,7 +6,7 @@ it has been tried to write the code that can be easily modified or developed for
 complicated purposes using Python programming.
 
 
-The report for this code is uploaded on ResearchGate [2] and please cite it if you use this code (partially or completely):
+The primary version report for this code is uploaded on ResearchGate [2]; please cite it if you use this code (partially or completely):
 The reader is referred to Atmospheric Chemistry and Physics: From Air pollution to Climate Change [3] for gaining the scientific background.
 
 Before run:
