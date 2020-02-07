@@ -1,6 +1,6 @@
 This code (and its attachment: 'functions.py') is designed to do the kinetics, specifically for atmospheric chemistry reactions. 
 It has been designed following the processes Kinetic PreProcessor (KPP) [1] follows although
-it is not as powerful as versatile as KPP. However, it is user-friendly and can be used 
+it is not as powerful and versatile as KPP. However, it is user-friendly and can be used 
 to teach the kinetics or doing not-complicated box-modeling simulations. Nevertheless,
 it has been tried to write the code that can be easily modified or developed for more 
 complicated purposes using Python programming.
