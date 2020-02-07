@@ -168,7 +168,15 @@ OUTPUTS:
     
         - You can modify the code to save additional outputs you inquire!
     
-    
+   
+   
+ The following picture shows the general structure of the code:
+ 
+ ![Image description](https://github.com/behroozraul/Kinetic-PreProcessor-in-Python-K3P-/blob/master/Picture1.png)
+   
+   
+   
+   
 References: 
 
 
