@@ -154,6 +154,12 @@ How To run:
         - Y axis for plotting can be chosen to be in log scale.
         
         - range of Y-axis should be chosen manually.
+        
+        - Photolysis is defined with 'hv' and photolysis rate has to be showed with 'SUN'
+        
+        - Some other rate laws, such as arrhenius law, are defined in the code. However, the code is not tested for them. 
+          So, you may encounter problems by using them. This problem will hopefully be solved in next version!
+
 
 
 OUTPUTS:
