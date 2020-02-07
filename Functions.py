@@ -1,14 +1,9 @@
-'''
-Kinetic PreProcessor in Python (K3P)
-Behrooz Roozitalab (behrooz-roozitalab@uiowa.edu)
-Center for Global and Regional Environmental Research, 
-Chemical and Biochemical Engineering Department,
-University of Iowa
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb  3 13:38:36 2020
 
-Individual Project for Atmospheric Chemistry and Physics Course by Prof. Charles O. Stanier (charles-stanier@uiowa.edu)
-
-read README.md for more information.
-'''
+@author: roozitalab
+"""
 import re
 import numpy as np
 from sympy import Symbol
@@ -19,17 +14,21 @@ import matplotlib.pyplot as plt
 
 
 def ARR(A,B,C,Temp):
+    ''' Arrhenius rate law function 
+        based on KPP code'''
 
     ARR=A*np.exp(-1*B/Temp)*(Temp/300.)**(C)
     return ARR
 
 def ARR2(A,B,Temp):
-
+    ''' Simplified Arrhenius, with two arguments 
+        based on KPP code'''
     ARR2=A * np.exp(B/Temp)
     return ARR2
 
 
 def EP2(A0,C0,A2,C2,A3,C3,Temp,Cfactor):
+    ''' Based on SAPRC99 mechanism in KPP'''
 
     k0=A0*np.exp(-1*C0/Temp)
     k2=A2*np.exp(-1*C2/Temp)
@@ -38,6 +37,7 @@ def EP2(A0,C0,A2,C2,A3,C3,Temp,Cfactor):
     return EP2    
 
 def EP3(A1,C1,A2,C2,Temp,Cfactor):
+    ''' Based on SAPRC99 mechanism in KPP'''
 
     k1=A1*np.exp(-1.*C1/Temp)
     k2=A2*np.exp(-1.*C2/Temp)*Cfactor
@@ -45,6 +45,7 @@ def EP3(A1,C1,A2,C2,Temp,Cfactor):
     return EP3
 
 def FALL(A0,B0,C0,A1,B1,C1,CF,Temp,Cfactor):
+    ''' Based on SAPRC99 mechanism in KPP'''
 
     k0=A0*np.exp(-1.*B0/Temp)*(Temp/300)**C0
     k1=A1*np.exp(-1.*B1/Temp)*(Temp/300)**C1
@@ -57,7 +58,12 @@ def FALL(A0,B0,C0,A1,B1,C1,CF,Temp,Cfactor):
 
 
 def Reactions(Filename,Constants):
-
+    '''
+        This function returns a list including all the reaction in the system in this format:
+            [[list of reactants], [list of products], [reaction rate]]
+            reaction rates may be computed using other functions (FALL, etc.)
+        Moreover, it returns a list of species.
+    '''
     
     with open(Filename, 'r') as f_in:
         
@@ -163,20 +169,16 @@ def Reactions(Filename,Constants):
     return R , species
 
 
-def InitialConcentration(species,constants,initials):
-    initial={}
-    for i in range(len(species)):
-        if species[i] not in constants.keys():
-            initial[species[i]]=0
-    for i in initials:
-        initial[i]=initials[i]
-    return initial
-    
+
     
     
 
 
 def Concentrations(Filename):
+    ''' This function reads the initial values file and
+        returns required data including:
+            units, Cfactor, constantValues, changingValues, and temperature
+    '''
     
     with open(Filename, 'r') as f_in:
         
@@ -187,6 +189,8 @@ def Concentrations(Filename):
         Constants={}
 
         Cfactor=1
+        Temp=300
+        units='ppb'
 
         for i in range(len(line)):
             if re.search(r'\#INITVALUES',line[i]):
@@ -226,14 +230,25 @@ def Concentrations(Filename):
 
 
 
+def InitialConcentration(species,constants,initials):
+    ''' This Function returns initial values '''
+    initial={}
+    for i in range(len(species)):
+        if species[i] not in constants.keys():
+            initial[species[i]]=0
+    for i in initials:
+        initial[i]=initials[i]
+    return initial
+    
 
 
 
 
 
-
-def ReactionRate(R,Constants):    #This function finds the reaction rate for a  given reaction. 
-
+def ReactionRate(R,Constants):     
+    ''' This function reads a Reaction and Constant values, 
+        extracts the reaction rates 
+        It has been used in "DerivativesRate" function'''
 
     reactantnumber=len(R[0])
 
@@ -248,8 +263,12 @@ def ReactionRate(R,Constants):    #This function finds the reaction rate for a  
             reactionrate= reactionrate *R[0][i]
     return reactionrate    
 
-def DerivativesName(R,Constants):     # This function extracts name of the derivatives. 
 
+def DerivativesName(R,Constants):      
+    ''' This function reads a Reaction and Constant values,
+        extracts name of the derivatives 
+        It has been used in "DerivativesRate" and "collection" function'''
+        
     derivatives=[]
     coefficients=[]
     for i in range(len(R)-1):       
@@ -271,8 +290,11 @@ def DerivativesName(R,Constants):     # This function extracts name of the deriv
     return derivatives , coefficients
 
 
-def DerivativesRate(R,Constants):     # This function finds the derivatives of a reaction
-
+def DerivativesRate(R,Constants):    
+    ''' This function reads a Reaction and Constant values,
+        finds the derivatives of that reaction 
+        It has been used in "TotalDerivatives" function'''
+    
     reactionrate=ReactionRate(R,Constants)
     derivativesname , coefficients =DerivativesName(R,Constants)
 
@@ -294,8 +316,11 @@ def DerivativesRate(R,Constants):     # This function finds the derivatives of a
           
     return derivativesrate
 
-def collection(R,Constants):      # This function makes a dictionary with derivatitives as the key without any value.
-
+def collection(R,Constants):      
+    ''' This function reads a Reaction and Constant Values,
+        makes a dictionary with derivatives as the key without any value
+        It has been used in "TotalDerivatives" function '''
+        
     Re=[]
     for i in range(len(R)):
         
@@ -312,6 +337,9 @@ def collection(R,Constants):      # This function makes a dictionary with deriva
 
 
 def TotalDerivatives(R,Constants):
+    ''' This function reads a Reaction and Constant values,
+        finds the equation regarding the derivatives
+        It has been used in "TotalDerivatives" function'''
 
     Re=[]
     for i in range(len(R)):
@@ -336,7 +364,9 @@ def TotalDerivatives(R,Constants):
 
 
 def Listformat(R, Constants):
-
+    ''' This function prepares all the outputs in list format
+        in order to keep the order of the species names after solving
+        the equations'''
     
     dictionary=TotalDerivatives(R,Constants)
     derivatives=[]
@@ -349,6 +379,7 @@ def Listformat(R, Constants):
 
 
 def state(initials,derivatives):
+    ''' This function finds the initial concentrations '''
     state0=[]
     for i in derivatives:
             state0.append(initials[i])
@@ -356,6 +387,8 @@ def state(initials,derivatives):
 
 
 def update_Sun(T):
+    ''' This function updates the reaction rate for 
+        photolysis reactions based on Cosine Rule '''
     sunrise=4.5
     sunset=19.5
     Thour=T/3600

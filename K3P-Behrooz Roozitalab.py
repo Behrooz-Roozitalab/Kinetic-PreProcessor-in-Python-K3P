@@ -1,11 +1,9 @@
 '''
-Kinetic PreProcessor in Python (K3P)
+Atmospheric Chemistry Course- Individual Project
 Behrooz Roozitalab (behrooz-roozitalab@uiowa.edu)
 Center for Global and Regional Environmental Research, 
 Chemical and Biochemical Engineering Department,
 University of Iowa
-
-Individual Project for Atmospheric Chemistry and Physics Course by Prof. Charles O. Stanier (charles-stanier@uiowa.edu)
 
 read README.md for more information.
 
@@ -27,15 +25,15 @@ starttime=datetime.now()
 ''' INPUTS '''
 
 # The directory that contains input files (don't forget the "/"  as the last character)
-data_dir='H:/UIOWA/Academics/Courses/Spring 2020 Semester/TA_ACP/Final_K3P/SimpleStrat/'
+data_dir='H:/UIOWA/Academics/Courses/Spring 2020 Semester/TA_ACP/Final_K3P/Final/'
 
 # Name of input files
-InitialValues_filename='concentrations-SmallStrat.txt'
-Reactions_filename='input_strat.txt'
+InitialValues_filename='Simple_kinetic_initialValues.txt'
+Reactions_filename='Simple_kinetic_reactions.txt'
 
 
 # Title you like to use
-title='Simple Kinetic Using K3P'
+title='Simple_Kinetic_Using_K3P'
 
 
 
@@ -51,9 +49,9 @@ t=np.arange(12*3600.,84*3600,1*3600)
 
 
 # y-axis for plotting
-y_min=1
-y_max=1e+12
-log_y_axis=True
+y_min=-0.5
+y_max=12.
+log_y_axis=False
 
 ''' CODE BEGINS '''
 
@@ -66,7 +64,7 @@ os.chdir(data_dir)
 unit,Cfactor,Constants,changingValues, Temp = Concentrations(InitialValues_filename)
 
 
-# This "Reactions" function is designed to extract reactions and reaction rates
+# This "Reactions" function is designed to extract reactions and species names
 # and convert them to appropriate formats  
 R , species=Reactions(Reactions_filename,Constants)
 
@@ -169,9 +167,9 @@ plt.axis((-1,timesteps,y_min,y_max))
 plt.legend(shadow=False, frameon=False, ncol=2,mode='horizontal', loc='upper center')
 plt.title(title)
 #plt.show()
-plt.savefig('Concentration_plots.png',format='png',dpi=300,bbox_inches='tight')
+plt.savefig('Concentration_' + title+'_plots.png',format='png',dpi=300,bbox_inches='tight')
+plt.close()
 
-#plt.close()
 print ("Runtime is {:} seconds".format( datetime.now() - starttime))
 
 
