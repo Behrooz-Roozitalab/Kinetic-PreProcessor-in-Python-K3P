@@ -28,30 +28,59 @@ starttime=datetime.now()
 data_dir='H:/UIOWA/Academics/Courses/Spring 2020 Semester/TA_ACP/Final_K3P/Final/'
 
 # Name of input files
-InitialValues_filename='Simple_kinetic_initialValues.txt'
-Reactions_filename='Simple_kinetic_reactions.txt'
+#InitialValues_filename='Simple_kinetic_initialValues_cos.txt'
+#Reactions_filename='Simple_kinetic_reactions_cos.txt'
 
+InitialValues_filename='concentrations-SmallStrat.txt'
+
+Reactions_filename='input_strat.txt'
 
 # Title you like to use
-title='Simple_Kinetic_Using_K3P'
+title='Simple_Kinetic_Using_K3P_cos2'
 
 
 
 
 
+
+# =============================================================================
+# # The durtaion in the format np.arange(start,end,timestep)
+# # If you intend to use the code for timesteps different than hourly, you have to 
+# # slightly modify the related parts in the code.
+# #t=np.arange(12*3600.,84*3600,1*3600)
+# t=np.arange(0.0,48.*3600.,3600.0)
+# 
+# =============================================================================
+
+# all times in this program are in seconds
+# for photolysis we have a standard solar cycle programmed in
+# and for that working in hours is useful
+# please enter a start hour (0-23.99) and a duration (in hours)
+# if you do not have photolysis reactions then the start hour doesn't matter
+# also please enter the time interval (in hours) for output
+start_hr = 12.
+duration_in_hours = 72.
+time_interval_in_hours = 1.
+nsteps = np.ceil( duration_in_hours/time_interval_in_hours)+1.
 
 # The durtaion in the format np.arange(start,end,timestep)
 # If you intend to use the code for timesteps different than hourly, you have to 
 # slightly modify the related parts in the code.
-t=np.arange(12*3600.,84*3600,1*3600)
+t=np.linspace( start_hr*3600, (start_hr+duration_in_hours)*3600, int(nsteps) )
+#t=np.arange(start_hr*3600,(start_hr+duration_in_hours)*3600,time_interval_in_hours*3600)
 #t=np.arange(0.0,48.*3600.,3600.0)
 
 
 
+
+
 # y-axis for plotting
-y_min=-0.5
-y_max=12.
-log_y_axis=False
+y_min=1.
+y_max=42.
+
+y_max=10e12
+
+log_y_axis=True
 
 ''' CODE BEGINS '''
 
@@ -85,6 +114,10 @@ def full(state,t):
     global derivatives,equation
     
     SUN= {Symbol('SUN'): update_Sun(t+0.25*3600)}
+# =============================================================================
+#     if SUN[Symbol('SUN')] > 1.0:
+#         print(SUN[Symbol('SUN')])
+# =============================================================================
     new_equation=[]
     for i in range(len(equation)):
         new_equation.append(equation[i].xreplace(SUN))
@@ -97,7 +130,7 @@ def full(state,t):
     num=[]
     for i in range(len(new_equation)):
         num.append(new_equation[i].xreplace(repl))
-    print('time',t)    
+    #print('time',t)    
     return num
 
 
@@ -121,7 +154,7 @@ column_names=[]
 for i in derivatives:
     column_names.append(str(i))
     
-dataframe=pd.DataFrame(states,index=t/3600,columns=column_names)   
+dataframe=pd.DataFrame(states,index=t,columns=column_names)   
 
 filename='Concentrations_'+title+'.csv'
 
@@ -130,7 +163,7 @@ with open(filename, 'w') as f:
     f.write('Center of Global and Regional Environmental Research (CGRER) - The University of Iowa\n')
 
    
-dataframe.to_csv(filename,mode='a',index=True, index_label='hour')
+dataframe.to_csv(filename,mode='a',index=True, index_label='seconds')
 
 
 
@@ -138,7 +171,7 @@ dataframe.to_csv(filename,mode='a',index=True, index_label='hour')
 ''' PLOTTING '''
 
 # an array including some color codes.
-colors=['C0','C1','C2','C3','C4','C5','C6','C7','C8']
+colors=['C0','C1','C2','C3','C4','C5','C6','C7','C8','C9','C10','C11','C12','C13','C14','C15']
 
 
 
@@ -149,19 +182,21 @@ timesteps=len(states)
 
 plt.figure()
 plt.ylabel('Concentration, '+unit)
-plt.xlabel('Time,hr')
+plt.xlabel('Time,sec')
 
 num_lines=len(states[0])
 for i in range(num_lines):
-    plt.plot(states[:,i],colors[i],label=derivatives[i])    
+    plt.plot(t,states[:,i],colors[i],label=derivatives[i])    
 
 
 
 #plt.axis((-1,48,-0.5,12))
 if log_y_axis:    
     plt.yscale('log')
+   
+ 
     
-plt.axis((-1,timesteps,y_min,y_max))
+plt.axis((t[0],t[-1],y_min,y_max))
 
 
 plt.legend(shadow=False, frameon=False, ncol=2,mode='horizontal', loc='upper center')
@@ -169,6 +204,25 @@ plt.title(title)
 #plt.show()
 plt.savefig('Concentration_' + title+'_plots.png',format='png',dpi=300,bbox_inches='tight')
 plt.close()
+
+
+
+''' SUN PLOT '''
+
+sun=np.zeros_like(t)
+for i in range(len(t)):
+    sun[i]=update_Sun(t[i]+0.25*3600)
+    
+plt.figure()
+plt.ylabel('Sunlight Intensity')
+plt.xlabel('Time,hour')
+plt.plot(t/3600,sun)    
+plt.axis((t[0]/3600,t[-1]/3600,-0.1,1.1))
+plt.savefig('SunlightIntensity.png',format='png',dpi=300,bbox_inches='tight')
+plt.close()
+
+
+
 
 print ("Runtime is {:} seconds".format( datetime.now() - starttime))
 

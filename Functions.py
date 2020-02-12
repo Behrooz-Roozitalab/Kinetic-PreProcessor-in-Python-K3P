@@ -331,8 +331,8 @@ def collection(R,Constants):
         for j in i:
             if j not in collection:
                 collection.append(j)
-        for j in range(len(collection)):
-            c[collection[j]]=[] 
+    for j in range(len(collection)):
+        c[collection[j]]=[] 
     return c
 
 
