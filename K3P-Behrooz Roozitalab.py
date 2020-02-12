@@ -28,29 +28,19 @@ starttime=datetime.now()
 data_dir='H:/UIOWA/Academics/Courses/Spring 2020 Semester/TA_ACP/Final_K3P/Final/'
 
 # Name of input files
-#InitialValues_filename='Simple_kinetic_initialValues_cos.txt'
-#Reactions_filename='Simple_kinetic_reactions_cos.txt'
+InitialValues_filename='Simple_kinetic_initialValues.txt'
+Reactions_filename='Simple_kinetic_reactions.txt'
 
-InitialValues_filename='concentrations-SmallStrat.txt'
 
-Reactions_filename='input_strat.txt'
 
 # Title you like to use
-title='Simple_Kinetic_Using_K3P_cos2'
+title='Simple_Kinetic_Using_K3P'
 
 
 
 
 
 
-# =============================================================================
-# # The durtaion in the format np.arange(start,end,timestep)
-# # If you intend to use the code for timesteps different than hourly, you have to 
-# # slightly modify the related parts in the code.
-# #t=np.arange(12*3600.,84*3600,1*3600)
-# t=np.arange(0.0,48.*3600.,3600.0)
-# 
-# =============================================================================
 
 # all times in this program are in seconds
 # for photolysis we have a standard solar cycle programmed in
@@ -78,9 +68,8 @@ t=np.linspace( start_hr*3600, (start_hr+duration_in_hours)*3600, int(nsteps) )
 y_min=1.
 y_max=42.
 
-y_max=10e12
 
-log_y_axis=True
+log_y_axis=False
 
 ''' CODE BEGINS '''
 
@@ -114,10 +103,7 @@ def full(state,t):
     global derivatives,equation
     
     SUN= {Symbol('SUN'): update_Sun(t+0.25*3600)}
-# =============================================================================
-#     if SUN[Symbol('SUN')] > 1.0:
-#         print(SUN[Symbol('SUN')])
-# =============================================================================
+
     new_equation=[]
     for i in range(len(equation)):
         new_equation.append(equation[i].xreplace(SUN))
