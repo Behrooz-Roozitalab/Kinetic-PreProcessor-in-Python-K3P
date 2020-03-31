@@ -221,12 +221,15 @@ def Concentrations(Filename):
             if re.search(r'\#CONSTANTS',line[i]):
                 j=i+1
                 #print(j)
+                
                 while re.search(r'^\s*\w',line[j]):
                     for value in re.finditer(r'\s*(\S*)\s*\=\s*(\d.*)\;',line[j]):
                         Constants[Symbol(value.group(1))]=float(value.group(2))
+                      
+                    j+=1
                     if j==len(line):
                         break
-                    j+=1
+
     return units,Cfactor,Constants,changingValues,Temp
 
 
